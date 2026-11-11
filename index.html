@@ -3,100 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dola Kaos — Gaya Kamu</title>
+  <title>TOKO KAOS — Gaya Kamu</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
   <!-- HEADER TETAP DI ATAS -->
-  <header class="header-fixed">
-    <div class="header-inner">
-      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
-      <div class="logo">DOLA KAOS</div>
-      <button class="cart-icon" id="cartIcon"><i class="fa-solid fa-cart-shopping"></i> <span id="cartBadge">0</span></button>
-    </div>
+  <header class="header-fixed" id="mainHeader">
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <h1 class="logo">TOKO KAOS</h1>
+    <button class="cart-btn" onclick="openCart()">🛒 <span id="cartBadge">0</span></button>
   </header>
 
-  <!-- MENU SAMPING -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <!-- SIDEBAR MENU -->
   <nav class="sidebar" id="sidebar">
-    <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
-    <div class="sidebar-links">
-      <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
-      <a href="produk.html"><i class="fa-solid fa-shirt"></i> Produk</a>
-      <a href="riwayat.html"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a>
-      <hr>
-      <a href="admin.html"><i class="fa-solid fa-gear"></i> Admin</a>
-    </div>
+    <div class="sidebar-close" onclick="toggleMenu()">✕</div>
+    <a href="#beranda" onclick="navigateTo('beranda')">🏠 Beranda</a>
+    <a href="#produk" onclick="navigateTo('produk')">👕 Produk</a>
+    <a href="#riwayat" onclick="navigateTo('riwayat')">📋 Riwayat</a>
   </nav>
-
-  <!-- KERANJANG SAMPING -->
-  <div class="cart-overlay" id="cartOverlay"></div>
-  <aside class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-      <h3>Keranjang</h3>
-      <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="cart-items" id="cartItems"><p class="cart-empty">Keranjang kosong</p></div>
-    
-    <div class="cart-voucher">
-      <input type="text" id="voucherInput" placeholder="Kode Voucher">
-      <button id="pakaiVoucher">Pakai</button>
-    </div>
-    <div class="cart-total">
-      <p>Subtotal: <span id="subtotal">Rp0</span></p>
-      <p>Diskon: <span id="diskon">Rp0</span></p>
-      <p class="total-bayar">Total: <span id="totalBayar">Rp0</span></p>
-    </div>
-    
-    <div class="cart-form">
-      <input type="text" id="namaPembeli" placeholder="Nama Lengkap" required>
-      <input type="tel" id="noWA" placeholder="Nomor WhatsApp" required>
-      <textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
-      <button class="btn-pesan" id="btnPesan">Kirim Pesanan via WhatsApp</button>
-    </div>
-  </aside>
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- KONTEN UTAMA -->
   <main class="main-content">
-    <!-- VIDEO 1:1 -->
-    <section class="hero-video">
-      <video autoplay loop muted playsinline>
-        <source src="https://raw.githubusercontent.com/USERNAME/REPO/main/assets/video-hero.mp4" type="video/mp4">
-        Browser tidak mendukung video
-      </video>
-    </section>
-
-    <!-- SLIDER FOTO 1:1 -->
-    <section class="slider-section">
-      <div class="slider-container">
-        <div class="slider-wrapper" id="sliderWrapper"></div>
-        <button class="slider-btn prev" id="slidePrev"><i class="fa-solid fa-chevron-left"></i></button>
-        <button class="slider-btn next" id="slideNext"><i class="fa-solid fa-chevron-right"></i></button>
+    <!-- BERANDA -->
+    <section id="page-beranda" class="page active">
+      <div class="video-container">
+        <video autoplay muted loop playsinline class="vid-1by1">
+          <source src="https://raw.githubusercontent.com/USER/REPO/main/video-intro.mp4" type="video/mp4">
+          Browser tidak mendukung video
+        </video>
       </div>
-      <div class="slider-dots" id="sliderDots"></div>
+
+      <div class="slider-container">
+        <div class="slider-wrapper" id="slideWrapper">
+          <div class="slide-item"><img src="https://raw.githubusercontent.com/USER/REPO/main/slide1.jpg" alt=""></div>
+          <div class="slide-item"><img src="https://raw.githubusercontent.com/USER/REPO/main/slide2.jpg" alt=""></div>
+          <div class="slide-item"><img src="https://raw.githubusercontent.com/USER/REPO/main/slide3.jpg" alt=""></div>
+          <div class="slide-item"><img src="https://raw.githubusercontent.com/USER/REPO/main/slide4.jpg" alt=""></div>
+        </div>
+        <div class="slider-dots" id="slideDots"></div>
+      </div>
+
+      <div class="brand-info">
+        <h2>Tentang Kami</h2>
+        <p>Kaos berkualitas dengan desain kekinian. Nyaman dipakai, awet dipakai. Kami menghadirkan gaya terbaik untuk kamu dengan harga terjangkau. Kualitas adalah prioritas kami ✨</p>
+        <button class="btn-primary" onclick="navigateTo('produk')">Lihat Semua Produk →</button>
+      </div>
     </section>
 
-    <!-- TENTANG BRAND -->
-    <section class="about-section">
-      <h2>Tentang Dola Kaos</h2>
-      <p>Kualitas terbaik, desain kekinian, harga ramah di kantong. Kami membuat kaos yang nyaman dipakai sehari-hari. Bahan katun premium, jahitan rapi, awet dipakai bertahun-tahun. Dukung karya lokal bersama kami!</p>
-      <a href="produk.html" class="btn-primary">Lihat Semua Produk</a>
+    <!-- PRODUK -->
+    <section id="page-produk" class="page">
+      <h2>👕 Etalase Kaos</h2>
+      <div class="etalase" id="daftarProduk"></div>
+      
+      <h2>🎁 Aksesoris</h2>
+      <div class="etalase" id="daftarAksesoris"></div>
+    </section>
+
+    <!-- RIWAYAT -->
+    <section id="page-riwayat" class="page">
+      <h2>📋 Riwayat Pesanan</h2>
+      <div id="daftarRiwayat" class="riwayat-list">
+        <p class="text-center">Belum ada pesanan</p>
+      </div>
     </section>
   </main>
 
+  <!-- KERANJANG MODAL -->
+  <div class="modal" id="cartModal">
+    <div class="modal-content cart-panel">
+      <div class="modal-head">
+        <h3>🛒 Keranjang</h3>
+        <button class="close-btn" onclick="closeCart()">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      
+      <div class="voucher-box">
+        <label>Kode Voucher:</label>
+        <input type="text" id="voucherCode" placeholder="Masukkan kode">
+        <button onclick="applyVoucher()">Pakai</button>
+      </div>
+
+      <div class="form-pembeli">
+        <h4>Data Pengiriman</h4>
+        <input type="text" id="namaPembeli" placeholder="Nama Lengkap" required>
+        <input type="tel" id="waPembeli" placeholder="Nomor WhatsApp (08...)" required>
+        <textarea id="alamatPembeli" placeholder="Alamat Lengkap + Kode Pos" rows="3" required></textarea>
+      </div>
+
+      <div class="cart-total">
+        <p>Subtotal: <span id="subtotal">Rp0</span></p>
+        <p>Diskon: <span id="diskon">Rp0</span></p>
+        <p class="total-bayar">Total: <span id="grandTotal">Rp0</span></p>
+      </div>
+
+      <button class="btn-primary full" onclick="kirimPesananWA()">Kirim Pesanan via WhatsApp 📲</button>
+    </div>
+  </div>
+
   <!-- FOOTER TETAP DI BAWAH -->
   <footer class="footer-fixed">
-    <div class="footer-inner">
-      <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
-        <i class="fa-brands fa-whatsapp"></i> CS WhatsApp
-      </a>
-      <a href="https://instagram.com/" target="_blank" class="footer-link">
-        <i class="fa-brands fa-instagram"></i> Instagram
-      </a>
-      <a href="https://tiktok.com/" target="_blank" class="footer-link">
-        <i class="fa-brands fa-tiktok"></i> TikTok
-      </a>
+    <a href="https://wa.me/6281234567890" target="_blank" class="wa-link">💬 Customer Service WA</a>
+    <div class="sosmed">
+      <a href="#" target="_blank">IG</a>
+      <a href="#" target="_blank">FB</a>
+      <a href="#" target="_blank">TikTok</a>
     </div>
   </footer>
 
