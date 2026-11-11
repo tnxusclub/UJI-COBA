@@ -2,8 +2,8 @@
 // KONFIGURASI GOOGLE SHEETS
 // ====================================
 // 🔽 GANTI ID SHEET DENGAN MILIKMU 🔽
-const SHEET_ID = "GANTI_DENGAN_ID_GOOGLE_SHEET_MU";
-const API_KEY = "GANTI_DENGAN_API_KEY_MU";
+const SHEET_ID = "1v1mCoA4FBRUw6_qP2PzTwXoZmfWqGWx_ZNo5GxXpe7c";
+const API_KEY = "TNXUS";
 
 // Nama Sheet di Google Sheets
 const SHEETS = {
