@@ -1,5 +1,5 @@
 // ===== KONFIGURASI =====
-const API_URL = "https://script.google.com/macros/s/AKfycbxxxxxxxxxxxx/exec"; // Ganti URL deploy Apps Script kamu
+const API_URL = "https://script.google.com/macros/s/AKfycbyIMnyP-DNH4DdnMeeWlh9RWwUIJE455lnYMahfQuf-0trzTRAi8g9-OziViv1yw7_t8A/exec"; // Ganti URL deploy Apps Script kamu
 let keranjang = JSON.parse(localStorage.getItem("keranjangKaos") || "[]");
 let voucherDiskon = 0;
 let daftarSlide = [];
@@ -171,7 +171,7 @@ async function kirimPesanan() {
   }
   
   // Kirim ke WhatsApp
-  const nomorWA = "6281234567890"; // Ganti nomor WhatsApp kamu
+  const nomorWA = "6285188081275"; // Ganti nomor WhatsApp kamu
   window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(teks)}`, "_blank");
   
   // Kosongkan keranjang
