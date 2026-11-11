@@ -220,7 +220,7 @@ Terima kasih sudah berbelanja! 😊
   } catch(e) { console.log('Gagal simpan ke sheet'); }
   
   // Buka WhatsApp
-  const nomorWA = '6281234567890'; // Ganti nomor WA toko kamu
+  const nomorWA = '6285188081275'; // Ganti nomor WA toko kamu
   window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(teks)}`, '_blank');
   
   // Reset
