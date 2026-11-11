@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Kaos Keren</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a1a2e',
+                        secondary: '#16213e',
+                        accent: '#e94560',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-primary text-white py-4 shadow">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">🔧 Panel Admin</h1>
+            <a href="index.html" class="bg-accent px-4 py-2 rounded text-sm">← Kembali ke Toko</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <!-- Tab Menu -->
+        <div class="flex flex-wrap mb-6 border-b">
+            <button class="tab-btn active px-4 py-2 text-accent border-b-2 border-accent" data-tab="produk">Kelola Produk</button>
+            <button class="tab-btn px-4 py-2 text-gray-500" data-tab="slide">Slide Beranda</button>
+            <button class="tab-btn px-4 py-2 text-gray-500" data-tab="info">Info Brand</button>
+            <button class="tab-btn px-4 py-2 text-gray-500" data-tab="voucher">Voucher</button>
+        </div>
+
+        <!-- Tab: Kelola Produk -->
+        <div id="tab-produk" class="tab-content">
+            <div class="bg-white rounded-lg shadow p-5 mb-6">
+                <h2 class="text-lg font-bold mb-4">➕ Tambah Produk Baru</h2>
+                <form id="formProduk" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Nama Produk</label>
+                                                <input type="text" name="nama" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Kategori</label>
+                        <select name="kategori" class="w-full border rounded px-3 py-2">
+                            <option value="kaos">Kaos</option>
+                            <option value="aksesori">Aksesori</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Harga (Rp)</label>
+                        <input type="number" name="harga" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Stok</label>
+                        <input type="number" name="stok" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Ukuran (pisahkan dengan koma)</label>
+                        <input type="text" name="ukuran" class="w-full border rounded px-3 py-2" placeholder="S,M,L,XL" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Link Foto</label>
+                        <input type="url" name="foto" class="w-full border rounded px-3 py-2" required>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium mb-1">Deskripsi</label>
+                        <textarea name="deskripsi" class="w-full border rounded px-3 py-2" rows="2"></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <button type="submit" class="bg-accent text-white px-6 py-2 rounded font-medium">
+                            <i class="fa fa-plus mr-1"></i> Simpan Produk
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-lg font-bold mb-4">📋 Daftar Produk</h2>
+                <div id="daftarProdukAdmin" class="space-y-3">
+                    <p class="text-gray-500">Memuat...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Slide Beranda -->
+        <div id="tab-slide" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-5 mb-6">
+                <h2 class="text-lg font-bold mb-4">🖼️ Tambah Slide Baru</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Link Gambar</label>
+                        <input type="url" id="slideFoto" class="w-full border rounded px-3 py-2" placeholder="https://...">
+                    </div>
+                    <button id="tambahSlide" class="bg-accent text-white px-6 py-2 rounded">
+                        <i class="fa fa-plus mr-1"></i> Tambah Slide
+                    </button>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-lg font-bold mb-4">Daftar Slide</h2>
+                <div id="daftarSlide" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <p class="text-gray-500 col-span-full">Memuat...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Info Brand -->
+        <div id="tab-info" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-lg font-bold mb-4">🏷️ Edit Informasi Brand</h2>
+                <div class="space-y-4 max-w-lg">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Nama Brand</label>
+                        <input type="text" id="brandNama" class="w-full border rounded px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Deskripsi Brand</label>
+                        <textarea id="brandDeskripsi" class="w-full border rounded px-3 py-2" rows="4"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Video Beranda (Link)</label>
+                        <input type="url" id="brandVideo" class="w-full border rounded px-3 py-2">
+                    </div>
+                    <button id="simpanInfo" class="bg-accent text-white px-6 py-2 rounded">
+                        <i class="fa fa-save mr-1"></i> Simpan Info
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Voucher -->
+        <div id="tab-voucher" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-5 mb-6">
+                <h2 class="text-lg font-bold mb-4">🎟️ Tambah Voucher</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Kode Voucher</label>
+                        <input type="text" id="voucherKode" class="w-full border rounded px-3 py-2" placeholder="CONTOH10">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Diskon (%)</label>
+                        <input type="number" id="voucherPersen" class="w-full border rounded px-3 py-2" min="1" max="100">
+                    </div>
+                    <div class="flex items-end">
+                        <button id="tambahVoucher" class="bg-accent text-white px-4 py-2 rounded w-full">Tambah</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-5">
+                <h2 class="text-lg font-bold mb-4">Daftar Voucher</h2>
+                <div id="daftarVoucher" class="space-y-2">
+                    <p class="text-gray-500">Belum ada voucher</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<script>
+// ================= KONFIGURASI =================
+const SHEET_ID = "GANTI_DENGAN_ID_GOOGLE_SHEETS_KAMU";
+const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+// Data penyimpanan sementara (nanti dihubungkan ke Google Sheets API)
+let produkList = JSON.parse(localStorage.getItem('produkList') || '[]');
+let slideList = JSON.parse(localStorage.getItem('slideList') || '[]');
+let voucherList = JSON.parse(localStorage.getItem('voucherList') || '[]');
+let brandInfo = JSON.parse(localStorage.getItem('brandInfo') || JSON.stringify({
+    nama: 'Kaos Keren',
+    deskripsi: 'Kaos Keren adalah brand lokal dari Semarang yang menyediakan kaos berkualitas dengan desain modern dan nyaman dipakai sehari-hari.',
+    video: ''
+}));
+
+// ================= TAB SWITCHING =================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active', 'text-accent', 'border-b-2', 'border-accent');
+            b.classList.add('text-gray-500');
+        });
+        this.classList.add('active', 'text-accent', 'border-b-2', 'border-accent');
+        this.classList.remove('text-gray-500');
+        
+        const tabId = this.getAttribute('data-tab');
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+        
+        if(tabId === 'produk') renderProdukAdmin();
+        if(tabId === 'slide') renderSlideAdmin();
+        if(tabId === 'info') loadInfoBrand();
+        if(tabId === 'voucher') renderVoucherAdmin();
+    });
+});
+
+// ================= PRODUK =================
+document.getElementById('formProduk').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const produk = {
+        id: Date.now(),
+        nama: formData.get('nama'),
+        kategori: formData.get('kategori'),
+        harga: parseInt(formData.get('harga')),
+        stok: parseInt(formData.get('stok')),
+        ukuran: formData.get('ukuran'),
+        foto: formData.get('foto'),
+        deskripsi: formData.get('deskripsi')
+    };
+    produkList.push(produk);
+    localStorage.setItem('produkList', JSON.stringify(produkList));
+    this.reset();
+    renderProdukAdmin();
+    alert('✅ Produk berhasil ditambahkan!');
+});
+
+function renderProdukAdmin() {
+    const el = document.getElementById('daftarProdukAdmin');
+    if(produkList.length === 0) {
+        el.innerHTML = '<p class="text-gray-500">Belum ada produk</p>';
+        return;
+    }
+    el.innerHTML = produkList.map(p => `
+        <div class="flex flex-col md:flex-row items-start md:items-center gap-3 p-3 border rounded">
+            <img src="${p.foto}" class="w-16 h-16 object-cover rounded">
+            <div class="flex-1">
+                <h4 class="font-bold">${p.nama}</h4>
+                <p class="text-sm text-gray-500">${p.kategori} • Rp ${p.harga.toLocaleString('id-ID')} • Stok: ${p.stok}</p>
+                <p class="text-xs text-gray-400">Ukuran: ${p.ukuran}</p>
+            </div>
+            <div class="flex gap-2">
+                <button class="text-blue-500 text-sm" onclick="editProduk(${p.id})"><i class="fa fa-pencil"></i> Edit</button>
+                <button class="text-red-500 text-sm" onclick="hapusProduk(${p.id})"><i class="fa fa-trash"></i> Hapus</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+window.hapusProduk = function(id) {
+    if(confirm('Yakin ingin menghapus produk ini?')) {
+        produkList = produkList.filter(p => p.id !== id);
+        localStorage.setItem('produkList', JSON.stringify(produkList));
+        renderProdukAdmin();
+    }
+};
+
+window.editProduk = function(id) {
+    const p = produkList.find(x => x.id === id);
+    if(!p) return;
+    const newHarga = prompt('Harga baru:', p.harga);
+    const newStok = prompt('Stok baru:', p.stok);
+    if(newHarga !== null && newStok !== null) {
+        p.harga = parseInt(newHarga);
+        p.stok = parseInt(newStok);
+        localStorage.setItem('produkList', JSON.stringify(produkList));
+        renderProdukAdmin();
+        alert('✅ Produk diperbarui!');
+    }
+};
+
+// ================= SLIDE BERANDA =================
+document.getElementById('tambahSlide').addEventListener('click', function() {
+    const foto = document.getElementById('slideFoto').value.trim();
+    if(!foto) { alert('Masukkan link foto!'); return; }
+    slideList.push({ id: Date.now(), foto });
+    localStorage.setItem('slideList', JSON.stringify(slideList));
+    document.getElementById('slideFoto').value = '';
+    renderSlideAdmin();
+    alert('✅ Slide ditambahkan!');
+});
+
+function renderSlideAdmin() {
+    const el = document.getElementById('daftarSlide');
+    if(slideList.length === 0) {
+        el.innerHTML = '<p class="text-gray-500 col-span-full">Belum ada slide</p>';
+        return;
+    }
+    el.innerHTML = slideList.map((s, i) => `
+        <div class="relative group">
+            <img src="${s.foto}" class="w-full aspect-square object-cover rounded border">
+            <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                <button class="bg-red-500 text-white w-8 h-8 rounded-full" onclick="hapusSlide(${i})">&times;</button>
+            </div>
+            <p class="text-xs text-center mt-1">Slide ${i+1}</p>
+        </div>
+    `).join('');
+}
+
+window.hapusSlide = function(index) {
+    if(confirm('Hapus slide ini?')) {
+        slideList.splice(index, 1);
+        localStorage.setItem('slideList', JSON.stringify(slideList));
+        renderSlideAdmin();
+    }
+};
+
+// ================= INFO BRAND =================
+function loadInfoBrand() {
+    document.getElementById('brandNama').value = brandInfo.nama;
+    document.getElementById('brandDeskripsi').value = brandInfo.deskripsi;
+    document.getElementById('brandVideo').value = brandInfo.video || '';
+}
+
+document.getElementById('simpanInfo').addEventListener('click', function() {
+    brandInfo.nama = document.getElementById('brandNama').value;
+    brandInfo.deskripsi = document.getElementById('brandDeskripsi').value;
+    brandInfo.video = document.getElementById('brandVideo').value;
+    localStorage.setItem('brandInfo', JSON.stringify(brandInfo));
+    alert('✅ Info brand disimpan!');
+});
+
+// ================= VOUCHER =================
+document.getElementById('tambahVoucher').addEventListener('click', function() {
+    const kode = document.getElementById('voucherKode').value.trim().toUpperCase();
+    const persen = parseInt(document.getElementById('voucherPersen').value);
+    if(!kode || !persen || persen < 1 || persen > 100) {
+        alert('Masukkan kode dan persentase yang valid!'); return;
+    }
+    voucherList.push({ kode, persen });
+    localStorage.setItem('voucherList', JSON.stringify(voucherList));
+    document.getElementById('voucherKode').value = '';
+    document.getElementById('voucherPersen').value = '';
+    renderVoucherAdmin();
+    alert('✅ Voucher ditambahkan!');
+});
+
+function renderVoucherAdmin() {
+    const el = document.getElementById('daftarVoucher');
+    if(voucherList.length === 0) {
+        el.innerHTML = '<p class="text-gray-500">Belum ada voucher</p>';
+        return;
+    }
+    el.innerHTML = voucherList.map((v, i) => `
+        <div class="flex justify-between items-center p-2 border rounded">
+            <span class="font-mono font-bold text-accent">${v.kode}</span>
+            <span class="text-sm">Diskon ${v.persen}%</span>
+            <button class="text-red-500 text-sm" onclick="hapusVoucher(${i})"><i class="fa fa-trash"></i> Hapus</button>
+        </div>
+    `).join('');
+}
+
+window.hapusVoucher = function(index) {
+    if(confirm('Hapus voucher ini?')) {
+        voucherList.splice(index, 1);
+        localStorage.setItem('voucherList', JSON.stringify(voucherList));
+        renderVoucherAdmin();
+    }
+};
+
+// ================= INISIALISASI =================
+document.addEventListener('DOMContentLoaded', function() {
+    renderProdukAdmin();
+});
+</script>
+
+</body>
+</html>
