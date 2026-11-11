@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxxxxxxxxxxxx/exec"; // Ganti URL yang sama
+const API_URL = "https://script.google.com/macros/s/AKfycbyIMnyP-DNH4DdnMeeWlh9RWwUIJE455lnYMahfQuf-0trzTRAi8g9-OziViv1yw7_t8A/exec"; // Ganti URL yang sama
 
 document.addEventListener("DOMContentLoaded", () => {
   // Tab Switching
