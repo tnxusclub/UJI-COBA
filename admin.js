@@ -1,5 +1,5 @@
 // ⚠️ Ganti dengan LINK WEB APP GOOGLE APPS SCRIPT kamu di sini
-const GS_URL = "👉 TEMPEL LINK WEB APP GOOGLE SCRIPTS DI SINI 👈";
+const GS_URL = "https://script.google.com/macros/s/AKfycbz0rI0L2Znb12jfB0LY1PCKPZIjXP3NhB6i28H9lkCy0qZPnqwOXFrDnZo0sKzoKiMKbg/exec";
 
 // === FUNGSI TAB ===
 function bukaTab(tabId) {
