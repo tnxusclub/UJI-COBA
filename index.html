@@ -1,151 +1,105 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KaosKita - Toko Kaos Terpercaya</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dola Kaos — Gaya Kamu</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-    <!-- HEADER TETAP DI ATAS -->
-    <header class="header-fixed">
-        <div class="header-container">
-            <button class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">KaosKita</div>
-            <button class="cart-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
-            </button>
-        </div>
-        <!-- MENU NAVIGASI -->
-        <nav class="nav-menu" id="navMenu">
-            <a href="#beranda" class="nav-link active" data-page="beranda">Beranda</a>
-            <a href="#produk" class="nav-link" data-page="produk">Produk</a>
-            <a href="#riwayat" class="nav-link" data-page="riwayat">Riwayat</a>
-        </nav>
-    </header>
-
-    <!-- KONTEN UTAMA -->
-    <main class="main-content">
-        <!-- BERANDA -->
-        <section id="beranda" class="page-section active">
-            <!-- Video 1:1 -->
-            <div class="video-container">
-                <video autoplay loop muted playsinline class="video-1by1">
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-people-walking-in-a-city-4063-large.mp4" type="video/mp4">
-                    Browser kamu tidak mendukung video
-                </video>
-            </div>
-
-            <!-- Foto Slide -->
-            <div class="slider-section">
-                <div class="slider-container">
-                    <div class="slider-wrapper" id="sliderWrapper">
-                        <!-- Slide akan dimuat otomatis dari Google Sheets -->
-                    </div>
-                    <div class="slider-dots" id="sliderDots"></div>
-                </div>
-            </div>
-
-            <!-- Tentang Brand -->
-            <div class="about-section">
-                <h2>Tentang KaosKita</h2>
-                <p>KaosKita adalah brand lokal yang menyediakan kaos berkualitas dengan desain modern dan nyaman dipakai. Kami mengutamakan kualitas bahan dan kepuasan pelanggan. Setiap kaos dibuat dengan teliti untuk menemani aktivitasmu sehari-hari.</p>
-                <button class="btn-primary" onclick="switchPage('produk')">Lihat Produk Kami</button>
-            </div>
-        </section>
-
-        <!-- PRODUK -->
-        <section id="produk" class="page-section">
-            <h2>Produk Kaos</h2>
-            <!-- Etalase Baju -->
-            <div class="category-section">
-                <h3>👕 Kaos Pilihan</h3>
-                <div class="products-scroll" id="bajuContainer">
-                    <!-- Produk dimuat otomatis -->
-                </div>
-            </div>
-
-            <!-- Etalase Aksesori -->
-            <div class="category-section">
-                <h3>🎁 Aksesori</h3>
-                <div class="products-scroll" id="aksesoriContainer">
-                    <!-- Aksesori dimuat otomatis -->
-                </div>
-            </div>
-        </section>
-
-        <!-- RIWAYAT -->
-        <section id="riwayat" class="page-section">
-            <h2>Riwayat Pesanan</h2>
-            <div class="riwayat-container" id="riwayatContainer">
-                <p class="empty-text">Belum ada pesanan. Yuk belanja dulu!</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- KERANJANG SIDEBAR -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Keranjang Belanja</h3>
-            <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <p class="empty-cart">Keranjang masih kosong</p>
-        </div>
-        <div class="cart-footer">
-            <!-- Voucher -->
-            <div class="form-group">
-                <label>Kode Voucher</label>
-                <div class="voucher-input">
-                    <input type="text" id="voucherCode" placeholder="Masukkan kode">
-                    <button class="btn-small" id="applyVoucher">Pakai</button>
-                </div>
-                <p class="discount-text" id="discountText" style="display:none;">Diskon diterapkan!</p>
-            </div>
-            <!-- Ringkasan -->
-            <div class="price-summary">
-                <p>Subtotal: <span id="subtotal">Rp 0</span></p>
-                <p>Diskon: <span id="discountAmount">Rp 0</span></p>
-                <p class="total-price">Total: <span id="grandTotal">Rp 0</span></p>
-            </div>
-            <!-- Data Pembeli -->
-            <div class="form-group">
-                <label>Nama Lengkap *</label>
-                <input type="text" id="buyerName" placeholder="Nama kamu">
-            </div>
-            <div class="form-group">
-                <label>No. WhatsApp *</label>
-                <input type="tel" id="buyerWA" placeholder="Contoh: 0812xxxxxx">
-            </div>
-            <div class="form-group">
-                <label>Alamat Lengkap *</label>
-                <textarea id="buyerAddress" rows="3" placeholder="Alamat pengiriman"></textarea>
-            </div>
-            <button class="btn-primary full-width" id="sendOrder">
-                <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
-            </button>
-        </div>
+  <!-- HEADER TETAP DI ATAS -->
+  <header class="header-fixed">
+    <div class="header-inner">
+      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="logo">DOLA KAOS</div>
+      <button class="cart-icon" id="cartIcon"><i class="fa-solid fa-cart-shopping"></i> <span id="cartBadge">0</span></button>
     </div>
+  </header>
 
-    <!-- HEADER BAWAH TETAP -->
-    <footer class="footer-fixed">
-        <div class="footer-content">
-            <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
-                <i class="fab fa-whatsapp"></i> Customer Service
-            </a>
-            <div class="social-links">
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
-            </div>
-        </div>
-    </footer>
+  <!-- MENU SAMPING -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
+    <div class="sidebar-links">
+      <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Beranda</a>
+      <a href="produk.html"><i class="fa-solid fa-shirt"></i> Produk</a>
+      <a href="riwayat.html"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a>
+      <hr>
+      <a href="admin.html"><i class="fa-solid fa-gear"></i> Admin</a>
+    </div>
+  </nav>
 
-    <script src="script.js"></script>
+  <!-- KERANJANG SAMPING -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Keranjang</h3>
+      <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems"><p class="cart-empty">Keranjang kosong</p></div>
+    
+    <div class="cart-voucher">
+      <input type="text" id="voucherInput" placeholder="Kode Voucher">
+      <button id="pakaiVoucher">Pakai</button>
+    </div>
+    <div class="cart-total">
+      <p>Subtotal: <span id="subtotal">Rp0</span></p>
+      <p>Diskon: <span id="diskon">Rp0</span></p>
+      <p class="total-bayar">Total: <span id="totalBayar">Rp0</span></p>
+    </div>
+    
+    <div class="cart-form">
+      <input type="text" id="namaPembeli" placeholder="Nama Lengkap" required>
+      <input type="tel" id="noWA" placeholder="Nomor WhatsApp" required>
+      <textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
+      <button class="btn-pesan" id="btnPesan">Kirim Pesanan via WhatsApp</button>
+    </div>
+  </aside>
+
+  <!-- KONTEN UTAMA -->
+  <main class="main-content">
+    <!-- VIDEO 1:1 -->
+    <section class="hero-video">
+      <video autoplay loop muted playsinline>
+        <source src="https://raw.githubusercontent.com/USERNAME/REPO/main/assets/video-hero.mp4" type="video/mp4">
+        Browser tidak mendukung video
+      </video>
+    </section>
+
+    <!-- SLIDER FOTO 1:1 -->
+    <section class="slider-section">
+      <div class="slider-container">
+        <div class="slider-wrapper" id="sliderWrapper"></div>
+        <button class="slider-btn prev" id="slidePrev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="slider-btn next" id="slideNext"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
+    <!-- TENTANG BRAND -->
+    <section class="about-section">
+      <h2>Tentang Dola Kaos</h2>
+      <p>Kualitas terbaik, desain kekinian, harga ramah di kantong. Kami membuat kaos yang nyaman dipakai sehari-hari. Bahan katun premium, jahitan rapi, awet dipakai bertahun-tahun. Dukung karya lokal bersama kami!</p>
+      <a href="produk.html" class="btn-primary">Lihat Semua Produk</a>
+    </section>
+  </main>
+
+  <!-- FOOTER TETAP DI BAWAH -->
+  <footer class="footer-fixed">
+    <div class="footer-inner">
+      <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
+        <i class="fa-brands fa-whatsapp"></i> CS WhatsApp
+      </a>
+      <a href="https://instagram.com/" target="_blank" class="footer-link">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+      <a href="https://tiktok.com/" target="_blank" class="footer-link">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
