@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - KaosKita</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Admin Panel — Dola Kaos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-<body class="admin-body">
-    <div class="admin-container">
-        <header class="admin-header">
-            <h1><i class="fas fa-cog"></i> Panel Admin - KaosKita</h1>
-            <a href="index.html" class="btn-secondary">← Kembali ke Toko</a>
-        </header>
-
-        <!-- FORM TAMBAH PRODUK -->
-        <div class="admin-card">
-            <h2>Tambah / Edit Produk</h2>
-            <form id="productForm" class="admin-form">
-                <input type="hidden" id="editProductId">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nama Produk</label>
-                        <input type="text" id="prodName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Kategori</label>
-                        <select id="prodCategory">
-                            <option value="baju">Kaos</option>
-                            <option value="aksesori">Aksesori</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Link Foto Produk</label>
-                    <input type="url" id="prodImage" required>
-                </div>
-                <div class="form-group">
-                    <label>Deskripsi</label>
-                    <textarea id="prodDesc" rows="2"></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Harga (Rp)</label>
-                        <input type="number" id="prodPrice" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Stok</label>
-                        <input type="number" id="prodStock" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Ukuran Tersedia (pisahkan dengan koma, contoh: S,M,L,XL)</label>
-                    <input type="text" id="prodSizes" placeholder="S,M,L,XL">
-                </div>
-                <button type="submit" class="btn-primary">Simpan Produk</button>
-            </form>
-        </div>
-
-        <!-- DAFTAR PRODUK -->
-        <div class="admin-card">
-            <h2>Daftar Produk</h2>
-            <div class="product-list-admin" id="productListAdmin">
-                <p>Memuat data...</p>
-            </div>
-        </div>
-
-        <!-- EDIT SLIDER BERANDA -->
-        <div class="admin-card">
-            <h2>Edit Foto Slide Beranda</h2>
-            <div id="sliderEditContainer">
-                <p>Memuat slide...</p>
-            </div>
-            <button class="btn-primary" id="addSlideBtn">+ Tambah Slide Baru</button>
-        </div>
+<body>
+  <header class="header-fixed">
+    <div class="header-inner">
+      <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+      <div class="logo">ADMIN PANEL</div>
+      <div></div>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <nav class="sidebar" id="sidebar">
+    <button class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
+    <div class="sidebar-links">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Beranda</a>
+      <a href="produk.html"><i class="fa-solid fa-shirt"></i> Produk</a>
+      <a href="riwayat.html"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a>
+      <hr>
+      <a href="admin.html" class="active"><i class="fa-solid fa-gear"></i> Admin</a>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <section class="admin-section">
+      <h2>Panel Admin — Kelola Toko</h2>
+
+      <!-- TAB MENU -->
+      <div class="admin-tabs">
+        <button class="tab-btn active" data-tab="produk-tab">Kelola Produk</button>
+        <button class="tab-btn" data-tab="slide-tab">Slide Beranda</button>
+      </div>
+
+      <!-- KELOLA PRODUK -->
+      <div class="tab-content active" id="produk-tab">
+        <h3>Tambah Produk Baru</h3>
+        <form class="admin-form" id="formProduk">
+          <div class="form-row">
+            <label>Nama Produk</label>
+            <input type="text" id="prodNama" required>
+          </div>
+          <div class="form-row">
+            <label>Kategori</label>
+            <select id="prodKategori">
+              <option value="Kaos">Kaos</option>
+              <option value="Aksesoris">Aksesoris</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Link Foto (GitHub)</label>
+            <input type="url" id="prodFoto" placeholder="https://raw.githubusercontent.com/..." required>
+          </div>
+          <div class="form-row">
+            <label>Deskripsi</label>
+            <textarea id="prodDeskripsi" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <label>Ukuran (pisahkan dengan koma, contoh: S,M,L,XL)</label>
+            <input type="text" id="prodUkuran" value="S,M,L,XL">
+          </div>
+          <div class="form-row">
+            <label>Harga (tanpa Rp)</label>
+            <input type="number" id="prodHarga" required>
+          </div>
+          <div class="form-row">
+            <label>Stok</label>
+            <input type="number" id="prodStok" value="100">
+          </div>
+          <button type="submit" class="btn-primary">Simpan Produk</button>
+        </form>
+
+        <h3>Daftar Produk</h3>
+        <div class="admin-list" id="daftarProduk">
+          <p>Memuat data...</p>
+        </div>
+      </div>
+
+      <!-- KELOLA SLIDE BERANDA -->
+      <div class="tab-content" id="slide-tab">
+        <h3>Tambah Slide Baru</h3>
+        <form class="admin-form" id="formSlide">
+          <div class="form-row">
+            <label>Urutan Tampil</label>
+            <input type="number" id="slideUrutan" value="1">
+          </div>
+          <div class="form-row">
+            <label>Link Foto Slide (GitHub)</label>
+            <input type="url" id="slideFoto" placeholder="https://raw.githubusercontent.com/..." required>
+          </div>
+          <div class="form-row">
+            <label>Keterangan Singkat</label>
+            <input type="text" id="slideKeterangan">
+          </div>
+          <button type="submit" class="btn-primary">Simpan Slide</button>
+        </form>
+
+        <h3>Daftar Slide</h3>
+        <div class="admin-list" id="daftarSlide">
+          <p>Memuat data...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-fixed">
+    <div class="footer-inner">
+      <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
+        <i class="fa-brands fa-whatsapp"></i> CS WhatsApp
+      </a>
+      <a href="https://instagram.com/" target="_blank" class="footer-link">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+      <a href="https://tiktok.com/" target="_blank" class="footer-link">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </a>
+    </div>
+  </footer>
+
+  <script src="admin-script.js"></script>
 </body>
 </html>
