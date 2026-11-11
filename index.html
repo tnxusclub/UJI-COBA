@@ -3,565 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaos Keren - Semarang</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1a1a2e',
-                        secondary: '#16213e',
-                        accent: '#e94560',
-                        light: '#f8f9fa',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .content-auto { content-visibility: auto; }
-            .scroll-smooth { scroll-behavior: smooth; }
-            .snap-x-mandatory { scroll-snap-type: x mandatory; }
-            .snap-center { scroll-snap-align: center; }
-            .header-fixed { position: fixed; top: 0; left: 0; right: 0; z-index: 50; }
-            .footer-fixed { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; }
-            .main-padding { padding-top: 70px; padding-bottom: 80px; }
-        }
-    </style>
+    <title>KaosKita - Toko Kaos Terpercaya</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-800 min-h-screen">
-
-<!-- HEADER -->
-<header class="header-fixed bg-primary text-white shadow-lg">
-    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-        <button id="menuToggle" class="text-2xl"><i class="fa fa-bars"></i></button>
-        <a href="#beranda" class="text-xl font-bold text-accent">KAOS KEREN</a>
-        <button id="cartToggle" class="text-2xl relative">
-            <i class="fa fa-shopping-cart"></i>
-            <span id="cartCount" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-        </button>
-    </div>
-</header>
-
-<!-- SIDEBAR MENU -->
-<div id="sidebar" class="fixed top-0 left-0 h-full w-0 overflow-hidden bg-secondary text-white shadow-2xl z-50 transition-all duration-300">
-    <div class="p-5 w-72">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-xl font-bold text-accent">Menu</h2>
-            <button id="closeSidebar" class="text-xl">&times;</button>
+<body>
+    <!-- HEADER TETAP DI ATAS -->
+    <header class="header-fixed">
+        <div class="header-container">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">KaosKita</div>
+            <button class="cart-btn" id="cartBtn">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
         </div>
-        <nav class="space-y-4">
-            <a href="#beranda" class="block py-2 px-4 rounded hover:bg-accent/20"><i class="fa fa-home mr-3"></i> Beranda</a>
-            <a href="#produk" class="block py-2 px-4 rounded hover:bg-accent/20"><i class="fa fa-tshirt mr-3"></i> Produk</a>
-            <a href="#riwayat" class="block py-2 px-4 rounded hover:bg-accent/20"><i class="fa fa-history mr-3"></i> Riwayat Pembelian</a>
-            <a href="admin.html" class="block py-2 px-4 rounded hover:bg-accent/20"><i class="fa fa-cog mr-3"></i> Panel Admin</a>
+        <!-- MENU NAVIGASI -->
+        <nav class="nav-menu" id="navMenu">
+            <a href="#beranda" class="nav-link active" data-page="beranda">Beranda</a>
+            <a href="#produk" class="nav-link" data-page="produk">Produk</a>
+            <a href="#riwayat" class="nav-link" data-page="riwayat">Riwayat</a>
         </nav>
-    </div>
-</div>
+    </header>
 
-<!-- KERANJANG -->
-<div id="cartSidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl z-50 transition-all duration-300 transform translate-x-full overflow-y-auto">
-    <div class="p-5">
-        <div class="flex justify-between items-center mb-6 border-b pb-4">
-            <h2 class="text-xl font-bold">Keranjang Belanja</h2>
-            <button id="closeCart" class="text-xl text-gray-500">&times;</button>
-        </div>
-        
-        <div id="cartItems" class="space-y-4 mb-6">
-            <p class="text-gray-500 text-center py-4">Keranjang masih kosong</p>
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-sm font-medium mb-1">Kode Voucher</label>
-            <div class="flex gap-2">
-                <input type="text" id="voucherCode" class="flex-1 border rounded px-3 py-2" placeholder="Masukkan kode">
-                <button id="applyVoucher" class="bg-secondary text-white px-3 rounded">Pakai</button>
+    <!-- KONTEN UTAMA -->
+    <main class="main-content">
+        <!-- BERANDA -->
+        <section id="beranda" class="page-section active">
+            <!-- Video 1:1 -->
+            <div class="video-container">
+                <video autoplay loop muted playsinline class="video-1by1">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-people-walking-in-a-city-4063-large.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung video
+                </video>
             </div>
-            <p id="voucherInfo" class="text-sm mt-1 hidden"></p>
-        </div>
 
-        <div class="border-t pt-4 mb-6">
-            <div class="flex justify-between mb-2"><span>Subtotal</span><span id="subtotal">Rp 0</span></div>
-            <div class="flex justify-between mb-2 text-green-600"><span>Diskon</span><span id="discount">Rp 0</span></div>
-            <div class="flex justify-between font-bold text-lg"><span>Total</span><span id="totalPrice">Rp 0</span></div>
-        </div>
-
-        <div class="space-y-3 mb-6">
-            <h3 class="font-bold">Data Pemesan</h3>
-            <input type="text" id="namaPembeli" class="w-full border rounded px-3 py-2" placeholder="Nama Lengkap">
-            <input type="tel" id="noWA" class="w-full border rounded px-3 py-2" placeholder="Nomor WhatsApp (08...)">
-            <textarea id="alamat" class="w-full border rounded px-3 py-2" rows="2" placeholder="Alamat Lengkap Pengiriman"></textarea>
-        </div>
-
-        <button id="checkoutWA" class="w-full bg-accent text-white py-3 rounded font-bold hover:bg-accent/90 transition">
-            Pesan via WhatsApp
-        </button>
-    </div>
-</div>
-
-<div id="overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity duration-300"></div>
-
-<!-- KONTEN UTAMA -->
-<main class="main-padding container mx-auto px-4">
-    <!-- BERANDA -->
-    <section id="beranda" class="py-6">
-        <div class="max-w-md mx-auto mb-8 rounded-xl overflow-hidden shadow-lg">
-            <video id="heroVideo" autoplay loop muted playsinline class="w-full aspect-square object-cover">
-                <source src="https://via.placeholder.com/500.mp4" type="video/mp4">
-                Browser tidak mendukung video
-            </video>
-        </div>
-
-        <div class="max-w-md mx-auto mb-10 relative">
-            <div id="heroSlider" class="overflow-hidden rounded-xl shadow-lg">
-                <div id="slideWrapper" class="flex transition-transform duration-500 ease-out">
-                    <div class="min-w-full aspect-square flex items-center justify-center bg-gray-100">
-                        <p class="text-gray-500">Memuat slide...</p>
+            <!-- Foto Slide -->
+            <div class="slider-section">
+                <div class="slider-container">
+                    <div class="slider-wrapper" id="sliderWrapper">
+                        <!-- Slide akan dimuat otomatis dari Google Sheets -->
                     </div>
+                    <div class="slider-dots" id="sliderDots"></div>
                 </div>
             </div>
-            <div class="flex justify-center gap-2 mt-3" id="slideIndicators"></div>
-        </div>
 
-        <div class="max-w-2xl mx-auto text-center mb-12">
-            <h2 class="text-2xl font-bold mb-4 text-primary" id="brandName">Tentang Kami</h2>
-            <p class="text-gray-600 mb-6" id="brandDesc">Memuat informasi brand...</p>
-            <a href="#produk" class="inline-block bg-accent text-white px-8 py-3 rounded-full font-bold hover:bg-accent/90 transition shadow-md">
-                Lihat Produk Kami
+            <!-- Tentang Brand -->
+            <div class="about-section">
+                <h2>Tentang KaosKita</h2>
+                <p>KaosKita adalah brand lokal yang menyediakan kaos berkualitas dengan desain modern dan nyaman dipakai. Kami mengutamakan kualitas bahan dan kepuasan pelanggan. Setiap kaos dibuat dengan teliti untuk menemani aktivitasmu sehari-hari.</p>
+                <button class="btn-primary" onclick="switchPage('produk')">Lihat Produk Kami</button>
+            </div>
+        </section>
+
+        <!-- PRODUK -->
+        <section id="produk" class="page-section">
+            <h2>Produk Kaos</h2>
+            <!-- Etalase Baju -->
+            <div class="category-section">
+                <h3>👕 Kaos Pilihan</h3>
+                <div class="products-scroll" id="bajuContainer">
+                    <!-- Produk dimuat otomatis -->
+                </div>
+            </div>
+
+            <!-- Etalase Aksesori -->
+            <div class="category-section">
+                <h3>🎁 Aksesori</h3>
+                <div class="products-scroll" id="aksesoriContainer">
+                    <!-- Aksesori dimuat otomatis -->
+                </div>
+            </div>
+        </section>
+
+        <!-- RIWAYAT -->
+        <section id="riwayat" class="page-section">
+            <h2>Riwayat Pesanan</h2>
+            <div class="riwayat-container" id="riwayatContainer">
+                <p class="empty-text">Belum ada pesanan. Yuk belanja dulu!</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- KERANJANG SIDEBAR -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Keranjang masih kosong</p>
+        </div>
+        <div class="cart-footer">
+            <!-- Voucher -->
+            <div class="form-group">
+                <label>Kode Voucher</label>
+                <div class="voucher-input">
+                    <input type="text" id="voucherCode" placeholder="Masukkan kode">
+                    <button class="btn-small" id="applyVoucher">Pakai</button>
+                </div>
+                <p class="discount-text" id="discountText" style="display:none;">Diskon diterapkan!</p>
+            </div>
+            <!-- Ringkasan -->
+            <div class="price-summary">
+                <p>Subtotal: <span id="subtotal">Rp 0</span></p>
+                <p>Diskon: <span id="discountAmount">Rp 0</span></p>
+                <p class="total-price">Total: <span id="grandTotal">Rp 0</span></p>
+            </div>
+            <!-- Data Pembeli -->
+            <div class="form-group">
+                <label>Nama Lengkap *</label>
+                <input type="text" id="buyerName" placeholder="Nama kamu">
+            </div>
+            <div class="form-group">
+                <label>No. WhatsApp *</label>
+                <input type="tel" id="buyerWA" placeholder="Contoh: 0812xxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Alamat Lengkap *</label>
+                <textarea id="buyerAddress" rows="3" placeholder="Alamat pengiriman"></textarea>
+            </div>
+            <button class="btn-primary full-width" id="sendOrder">
+                <i class="fab fa-whatsapp"></i> Kirim Pesanan via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- HEADER BAWAH TETAP -->
+    <footer class="footer-fixed">
+        <div class="footer-content">
+            <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
+                <i class="fab fa-whatsapp"></i> Customer Service
             </a>
-        </div>
-    </section>
-
-    <!-- PRODUK -->
-    <section id="produk" class="py-10">
-        <h2 class="text-2xl font-bold text-center mb-8 text-primary">Koleksi Produk</h2>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-semibold mb-4">👕 Kaos</h3>
-            <div class="overflow-x-auto snap-x-mandatory pb-4 -mx-4 px-4">
-                <div id="daftarKaos" class="flex gap-4">
-                    <div class="w-full py-10 text-center text-gray-500">Memuat produk...</div>
-                </div>
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
             </div>
         </div>
+    </footer>
 
-        <div>
-            <h3 class="text-xl font-semibold mb-4">🎁 Aksesori</h3>
-            <div class="overflow-x-auto snap-x-mandatory pb-4 -mx-4 px-4">
-                <div id="daftarAksesori" class="flex gap-4">
-                    <div class="w-full py-10 text-center text-gray-500">Memuat aksesori...</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RIWAYAT -->
-    <section id="riwayat" class="py-10">
-        <h2 class="text-2xl font-bold text-center mb-8 text-primary">Riwayat Pesanan</h2>
-        <div id="daftarRiwayat" class="max-w-lg mx-auto space-y-4">
-            <p class="text-center text-gray-500 py-8">Memuat riwayat...</p>
-        </div>
-    </section>
-</main>
-
-<!-- FOOTER -->
-<footer class="footer-fixed bg-primary text-white py-3 shadow-lg">
-    <div class="container mx-auto px-4 flex justify-around items-center">
-        <a href="https://wa.me/6281234567890" target="_blank" class="flex flex-col items-center text-sm">
-            <i class="fa fa-whatsapp text-xl mb-1 text-green-400"></i><span>CS WhatsApp</span>
-        </a>
-        <a href="https://instagram.com" target="_blank" class="flex flex-col items-center text-sm">
-            <i class="fa fa-instagram text-xl mb-1 text-pink-400"></i><span>Instagram</span>
-        </a>
-        <a href="https://tiktok.com" target="_blank" class="flex flex-col items-center text-sm">
-            <i class="fa fa-music text-xl mb-1 text-blue-300"></i><span>TikTok</span>
-        </a>
-    </div>
-</footer>
-
-<script>
-// ==============================================
-// 🔑 GANTI URL INI DENGAN URL WEB APP KAMU!
-const API_URL = "https://script.google.com/macros/s/AKfy.../exec";
-// ==============================================
-
-let keranjang = [];
-let daftarProduk = [];
-let voucherActive = null;
-let daftarVoucher = {};
-let slideData = [];
-let currentSlide = 0;
-
-// ================= SLIDER OTOMATIS =================
-function updateSlide() {
-    document.getElementById('slideWrapper').style.transform = `translateX(-${currentSlide * 100}%)`;
-    document.querySelectorAll('.slide-indicator').forEach((dot, i) => {
-        dot.classList.toggle('bg-accent', i === currentSlide);
-        dot.classList.toggle('bg-gray-300', i !== currentSlide);
-    });
-}
-function nextSlide() {
-    if(slideData.length > 0) {
-        currentSlide = (currentSlide + 1) % slideData.length;
-        updateSlide();
-    }
-}
-setInterval(nextSlide, 4000);
-
-// ================= SIDEBAR & KERANJANG =================
-const sidebar = document.getElementById('sidebar');
-const cartSidebar = document.getElementById('cartSidebar');
-const overlay = document.getElementById('overlay');
-
-document.getElementById('menuToggle').onclick = () => {
-    sidebar.style.width = '288px';
-    overlay.classList.remove('hidden');
-};
-document.getElementById('closeSidebar').onclick = closeAll;
-document.getElementById('cartToggle').onclick = () => {
-    cartSidebar.classList.remove('translate-x-full');
-    overlay.classList.remove('hidden');
-    renderKeranjang();
-};
-document.getElementById('closeCart').onclick = closeAll;
-overlay.onclick = closeAll;
-
-function closeAll() {
-    sidebar.style.width = '0';
-    cartSidebar.classList.add('translate-x-full');
-    overlay.classList.add('hidden');
-}
-
-// ================= FUNGSI API =================
-async function fetchAPI(action, method = "GET", data = null) {
-    const url = API_URL + `?action=${action}`;
-    try {
-        if(method === "GET") {
-            const res = await fetch(url);
-            return await res.json();
-        } else {
-            const res = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-            return await res.json();
-        }
-    } catch (err) {
-        console.error('API Error:', err);
-        return { success: false, error: err };
-    }
-}
-
-// ================= MUAT DATA DARI API =================
-async function loadAllData() {
-    // Produk
-    const produkRes = await fetchAPI("getProduk");
-    if(produkRes.success) {
-        daftarProduk = produkRes.data;
-        renderProduk();
-    }
-
-    // Slide
-    const slideRes = await fetchAPI("getSlide");
-    if(slideRes.success) {
-        slideData = slideRes.data;
-        renderSlides();
-    }
-
-    // Voucher
-    const vouRes = await fetchAPI("getVoucher");
-    if(vouRes.success) {
-        daftarVoucher = vouRes.data;
-    }
-
-    // Info Brand
-    const brandRes = await fetchAPI("getInfoBrand");
-    if(brandRes.success) {
-        document.getElementById('brandName').textContent = brandRes.data.nama || 'Tentang Kami';
-        document.getElementById('brandDesc').textContent = brandRes.data.deskripsi || '';
-        if(brandRes.data.video) {
-            document.querySelector('#heroVideo source').src = brandRes.data.video;
-            document.getElementById('heroVideo').load();
-        }
-    }
-
-    // Riwayat dari localStorage
-    renderRiwayat();
-}
-
-function renderSlides() {
-    const wrapper = document.getElementById('slideWrapper');
-    const indicators = document.getElementById('slideIndicators');
-    
-    if(slideData.length === 0) {
-        wrapper.innerHTML = `<div class="min-w-full aspect-square flex items-center justify-center bg-gray-100"><img src="https://picsum.photos/id/96/500/500" class="w-full h-full object-cover"></div>`;
-        return;
-    }
-    
-    wrapper.innerHTML = slideData.map(s => 
-        `<div class="min-w-full aspect-square flex items-center justify-center bg-gray-100"><img src="${s.foto}" class="w-full h-full object-cover"></div>`
-    ).join('');
-    
-    indicators.innerHTML = slideData.map((_, i) => 
-        `<span class="w-3 h-3 rounded-full ${i===0?'bg-accent':'bg-gray-300'} slide-indicator" data-slide="${i}"></span>`
-    ).join('');
-}
-
-function renderProduk() {
-    const kaos = daftarProduk.filter(p => p.kategori.toLowerCase() === 'kaos');
-    const aksesori = daftarProduk.filter(p => p.kategori.toLowerCase() === 'aksesori');
-
-    const elKaos = document.getElementById('daftarKaos');
-    elKaos.innerHTML = kaos.length === 0 
-        ? '<p class="text-gray-500 w-full text-center py-4">Belum ada produk kaos</p>'
-        : kaos.map(p => `
-            <div class="min-w-[260px] snap-center bg-white rounded-xl shadow-md overflow-hidden">
-                <img src="${p.foto}" alt="${p.nama}" class="w-full aspect-square object-cover">
-                <div class="p-4">
-                    <h4 class="font-bold text-lg">${p.nama}</h4>
-                    <p class="text-gray-500 text-sm mb-2">${p.deskripsi || ''}</p>
-                    <p class="text-accent font-bold text-lg mb-2">Rp ${parseInt(p.harga).toLocaleString('id-ID')}</p>
-                    <div class="mb-3">
-                        <label class="text-sm text-gray-600">Ukuran:</label>
-                        <select class="w-full border rounded px-2 py-1 mt-1 ukuran-select" data-id="${p.id}">
-                            ${(p.ukuran||'S,M,L,XL').split(',').map(u => `<option value="${u.trim()}">${u.trim()}</option>`).join('')}
-                        </select>
-                    </div>
-                    <button class="w-full bg-accent text-white py-2 rounded font-medium hover:bg-accent/90 tambah-keranjang" data-id="${p.id}">
-                        <i class="fa fa-cart-plus mr-1"></i> Tambah ke Keranjang                     </button>
-                </div>
-            </div>
-        `).join('');
-
-    const elAksesori = document.getElementById('daftarAksesori');
-    elAksesori.innerHTML = aksesori.length === 0
-        ? '<p class="text-gray-500 w-full text-center py-4">Belum ada aksesori</p>'
-        : aksesori.map(p => `
-            <div class="min-w-[260px] snap-center bg-white rounded-xl shadow-md overflow-hidden">
-                <img src="${p.foto}" alt="${p.nama}" class="w-full aspect-square object-cover">
-                <div class="p-4">
-                    <h4 class="font-bold text-lg">${p.nama}</h4>
-                    <p class="text-gray-500 text-sm mb-2">${p.deskripsi || ''}</p>
-                    <p class="text-accent font-bold text-lg mb-3">Rp ${parseInt(p.harga).toLocaleString('id-ID')}</p>
-                    <button class="w-full bg-accent text-white py-2 rounded font-medium hover:bg-accent/90 tambah-keranjang" data-id="${p.id}">
-                        <i class="fa fa-cart-plus mr-1"></i> Tambah ke Keranjang
-                    </button>
-                </div>
-            </div>
-        `).join('');
-
-    document.querySelectorAll('.tambah-keranjang').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = this.getAttribute('data-id');
-            const produk = daftarProduk.find(p => String(p.id) === String(id));
-            const ukuranEl = document.querySelector(`.ukuran-select[data-id="${id}"]`);
-            const ukuran = ukuranEl ? ukuranEl.value : 'Standar';
-            tambahKeKeranjang(produk, ukuran);
-        });
-    });
-}
-
-// ================= KERANJANG =================
-function tambahKeKeranjang(produk, ukuran) {
-    const itemSama = keranjang.find(i => String(i.id) === String(produk.id) && i.ukuran === ukuran);
-    if (itemSama) {
-        itemSama.jumlah += 1;
-    } else {
-        keranjang.push({ ...produk, ukuran, jumlah: 1 });
-    }
-    updateKeranjangCount();
-    renderKeranjang();
-    document.getElementById('cartSidebar').classList.remove('translate-x-full');
-    overlay.classList.remove('hidden');
-}
-
-function updateKeranjangCount() {
-    const total = keranjang.reduce((sum, i) => sum + i.jumlah, 0);
-    document.getElementById('cartCount').textContent = total;
-}
-
-function renderKeranjang() {
-    const el = document.getElementById('cartItems');
-    if (keranjang.length === 0) {
-        el.innerHTML = '<p class="text-gray-500 text-center py-8">Keranjang masih kosong</p>';
-        document.getElementById('subtotal').textContent = 'Rp 0';
-        document.getElementById('discount').textContent = 'Rp 0';
-        document.getElementById('totalPrice').textContent = 'Rp 0';
-        return;
-    }
-
-    el.innerHTML = keranjang.map((item, idx) => `
-        <div class="flex gap-3 border-b pb-3">
-            <img src="${item.foto}" class="w-16 h-16 object-cover rounded">
-            <div class="flex-1">
-                <h4 class="font-medium">${item.nama}</h4>
-                <p class="text-sm text-gray-500">Ukuran: ${item.ukuran}</p>
-                <p class="text-accent font-bold">Rp ${parseInt(item.harga).toLocaleString('id-ID')}</p>
-                <div class="flex items-center gap-2 mt-1">
-                    <button class="w-7 h-7 bg-gray-200 rounded text-sm kurangi-jumlah" data-idx="${idx}">-</button>
-                    <span>${item.jumlah}</span>
-                    <button class="w-7 h-7 bg-gray-200 rounded text-sm tambah-jumlah" data-idx="${idx}">+</button>
-                    <button class="text-red-500 text-sm ml-auto hapus-item" data-idx="${idx}"><i class="fa fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-    `).join('');
-
-    let subtotal = keranjang.reduce((sum, i) => sum + (parseInt(i.harga) * i.jumlah), 0);
-    let diskon = 0;
-    if (voucherActive) diskon = Math.floor(subtotal * voucherActive.persen / 100);
-    let total = subtotal - diskon;
-
-    document.getElementById('subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
-    document.getElementById('discount').textContent = `- Rp ${diskon.toLocaleString('id-ID')}`;
-    document.getElementById('totalPrice').textContent = `Rp ${total.toLocaleString('id-ID')}`;
-
-    document.querySelectorAll('.kurangi-jumlah').forEach(btn => {
-        btn.onclick = function() {
-            const i = parseInt(this.getAttribute('data-idx'));
-            keranjang[i].jumlah--;
-            if (keranjang[i].jumlah <= 0) keranjang.splice(i, 1);
-            updateKeranjangCount(); renderKeranjang();
-        };
-    });
-    document.querySelectorAll('.tambah-jumlah').forEach(btn => {
-        btn.onclick = function() {
-            const i = parseInt(this.getAttribute('data-idx'));
-            keranjang[i].jumlah++;
-            updateKeranjangCount(); renderKeranjang();
-        };
-    });
-    document.querySelectorAll('.hapus-item').forEach(btn => {
-        btn.onclick = function() {
-            const i = parseInt(this.getAttribute('data-idx'));
-            keranjang.splice(i, 1);
-            updateKeranjangCount(); renderKeranjang();
-        };
-    });
-}
-
-// ================= VOUCHER =================
-document.getElementById('applyVoucher').onclick = function() {
-    const kode = document.getElementById('voucherCode').value.trim().toUpperCase();
-    const infoEl = document.getElementById('voucherInfo');
-    if (daftarVoucher[kode]) {
-        voucherActive = daftarVoucher[kode];
-        infoEl.classList.remove('hidden');
-        infoEl.textContent = `✅ Diskon ${voucherActive.persen}% diterapkan!`;
-        infoEl.className = 'text-sm mt-1 text-green-600';
-    } else {
-        voucherActive = null;
-        infoEl.classList.remove('hidden');
-        infoEl.textContent = '❌ Kode voucher tidak valid';
-        infoEl.className = 'text-sm mt-1 text-red-500';
-    }
-    renderKeranjang();
-};
-
-// ================= CHECKOUT =================
-document.getElementById('checkoutWA').onclick = async function() {
-    if (keranjang.length === 0) { alert('Keranjang masih kosong!'); return; }
-
-    const nama = document.getElementById('namaPembeli').value.trim();
-    const wa = document.getElementById('noWA').value.trim();
-    const alamat = document.getElementById('alamat').value.trim();
-
-    if (!nama || !wa || !alamat) { alert('Lengkapi data pemesan terlebih dahulu!'); return; }
-
-    let subtotal = keranjang.reduce((sum, i) => sum + (parseInt(i.harga) * i.jumlah), 0);
-    let diskon = voucherActive ? Math.floor(subtotal * voucherActive.persen / 100) : 0;
-    let total = subtotal - diskon;
-
-    let pesananTeks = '🛍️ *PESANAN BARU*\n\n';
-    pesananTeks += `Nama: ${nama}\nNo WA: ${wa}\nAlamat: ${alamat}\n\n📦 *Detail:*\n`;
-    keranjang.forEach(item => {
-        pesananTeks += `- ${item.nama} | ${item.ukuran} | ${item.jumlah} x Rp ${parseInt(item.harga).toLocaleString('id-ID')}\n`;
-    });
-    pesananTeks += `\nSubtotal: Rp ${subtotal.toLocaleString('id-ID')}\n`;
-    if (diskon > 0) pesananTeks += `Diskon: -Rp ${diskon.toLocaleString('id-ID')}\n`;
-    pesananTeks += `*TOTAL: Rp ${total.toLocaleString('id-ID')}*\n\nTerima kasih!`;
-
-    const pesananBaru = {
-        nama, noWA: wa, alamat,
-        pesanan: keranjang.map(i => `${i.nama} (${i.ukuran}) × ${i.jumlah}`).join('; '),
-        total
-    };
-    const res = await fetchAPI("tambahRiwayat", "POST", pesananBaru);
-    
-    if (res.success) {
-        keranjang.forEach(async item => {
-            await fetchAPI("kurangiStok", "POST", { id: item.id, jumlah: item.jumlah });
-        });
-    }
-
-    const riwayat = JSON.parse(localStorage.getItem('riwayatPesanan') || '[]');
-    riwayat.unshift({
-        id: res.id || Date.now(), nama, wa, alamat,
-        items: [...keranjang], subtotal, diskon, total,
-        tanggal: new Date().toLocaleString('id-ID'),
-        status: 'Menunggu Konfirmasi'
-    });
-    localStorage.setItem('riwayatPesanan', JSON.stringify(riwayat));
-
-    const nomorWA = '6281234567890';
-    window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(pesananTeks)}`, '_blank');
-
-    keranjang = []; voucherActive = null;
-    document.getElementById('namaPembeli').value = '';
-    document.getElementById('noWA').value = '';
-    document.getElementById('alamat').value = '';
-    document.getElementById('voucherCode').value = '';
-    document.getElementById('voucherInfo').classList.add('hidden');
-    updateKeranjangCount(); renderKeranjang(); closeAll(); renderRiwayat();
-    alert('✅ Pesanan terkirim! Terima kasih');
-};
-
-// ================= RIWAYAT =================
-function renderRiwayat() {
-    const el = document.getElementById('daftarRiwayat');
-    const riwayat = JSON.parse(localStorage.getItem('riwayatPesanan') || '[]');
-    if (riwayat.length === 0) {
-        el.innerHTML = '<p class="text-center text-gray-500 py-8">Belum ada riwayat pesanan</p>';
-        return;
-    }
-    el.innerHTML = riwayat.map(r => `
-        <div class="bg-white rounded-lg shadow p-4">
-            <div class="flex justify-between items-start mb-2">
-                <span class="text-sm text-gray-500">#${r.id}</span>
-                <span class="text-sm bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">${r.status}</span>
-            </div>
-            <p class="font-medium">${r.nama}</p>
-            <p class="text-sm text-gray-600 mb-2">${r.tanggal}</p>
-            <p class="text-sm mb-1">${r.items.length} produk • Total: <span class="font-bold text-accent">Rp ${r.total.toLocaleString('id-ID')}</span></p>
-            <details class="text-sm mt-2">
-                <summary class="cursor-pointer text-gray-600">Lihat detail</summary>
-                <div class="mt-2 pl-3 border-l-2 border-gray-200">
-                    ${r.items.map(i => `<p>${i.nama} (${i.ukuran}) × ${i.jumlah}</p>`).join('')}
-                </div>
-            </details>
-        </div>
-    `).join('');
-}
-
-// ================= SCROLL SMOOTH =================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        closeAll();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
-    });
-});
-
-// ================= INISIALISASI =================
-document.addEventListener('DOMContentLoaded', loadAllData);
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
