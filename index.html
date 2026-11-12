@@ -8,402 +8,112 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="header" id="mainHeader">
-    <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
-    <div class="logo">TNXUS CLUB</div>
-    <button class="cart-toggle" onclick="toggleCart()"><i class="fas fa-shopping-cart"></i><span id="cartBadge">0</span></button>
+  <!-- HEADER TETAP DI ATAS -->
+  <header class="header-fixed" id="mainHeader">
+    <button class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+    <div class="logo">TNXUS <span>CLUB</span></div>
+    <button class="cart-toggle" id="cartToggle"><i class="fa-solid fa-cart-shopping"></i><span id="cartCount" class="cart-badge">0</span></button>
   </header>
 
   <!-- SIDEBAR MENU -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
   <nav class="sidebar" id="sidebar">
-    <div class="sidebar-close" onclick="toggleMenu()"><i class="fas fa-times"></i></div>
-    <div class="sidebar-logo">TNXUS CLUB</div>
-    <ul class="sidebar-menu">
-      <li><a href="#beranda" onclick="navigateTo('beranda'); toggleMenu();">Beranda</a></li>
-      <li><a href="#produk" onclick="navigateTo('produk'); toggleMenu();">Produk</a></li>
-      <li><a href="#riwayat" onclick="navigateTo('riwayat'); toggleMenu();">Riwayat Pembelian</a></li>
+    <div class="sidebar-close" id="sidebarClose"><i class="fa-solid fa-xmark"></i></div>
+    <ul class="menu-nav">
+      <li><a href="#beranda" class="nav-link active" data-page="beranda"><i class="fa-solid fa-house"></i> Beranda</a></li>
+      <li><a href="#produk" class="nav-link" data-page="produk"><i class="fa-solid fa-shirt"></i> Produk</a></li>
+      <li><a href="#riwayat" class="nav-link" data-page="riwayat"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pembelian</a></li>
     </ul>
   </nav>
-  <div class="overlay" id="overlay" onclick="toggleMenu(); toggleCart();"></div>
 
-  <!-- KERANJANG -->
-  <aside class="cart-panel" id="cartPanel">
+  <!-- KERANJANG SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
       <h3>Keranjang Belanja</h3>
-      <button onclick="toggleCart()"><i class="fas fa-times"></i></button>
+      <button class="cart-close" id="cartClose"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="cart-items" id="cartItems"></div>
-    
-    <div class="voucher-box">
-      <label>Kode Voucher</label>
-      <div class="voucher-input">
-        <input type="text" id="voucherCode" placeholder="Masukkan kode">
-        <button onclick="cekVoucher()">Pakai</button>
-      </div>
+    <div class="cart-voucher">
+      <input type="text" id="voucherInput" placeholder="Masukkan kode voucher">
+      <button id="applyVoucher">Pakai</button>
     </div>
-
     <div class="cart-form">
       <h4>Data Pengiriman</h4>
       <input type="text" id="namaPembeli" placeholder="Nama Lengkap" required>
       <input type="tel" id="noWA" placeholder="Nomor WhatsApp" required>
       <textarea id="alamat" placeholder="Alamat Lengkap" rows="3" required></textarea>
     </div>
-
     <div class="cart-total">
-      <p>Subtotal: <span id="subtotal">Rp0</span></p>
-      <p>Diskon: <span id="diskon">Rp0</span></p>
-      <h4>Total: <span id="totalBayar">Rp0</span></h4>
-      <button class="btn-checkout" onclick="kirimPesanan()">Pesan via WhatsApp</button>
+      <p>Subtotal: <span id="subtotal">Rp 0</span></p>
+      <p>Diskon: <span id="diskon">Rp 0</span></p>
+      <h4>Total: <span id="totalBayar">Rp 0</span></h4>
+      <button class="btn-checkout" id="btnCheckout">Kirim Pesanan via WhatsApp</button>
     </div>
   </aside>
 
   <!-- KONTEN UTAMA -->
   <main class="main-content">
     <!-- BERANDA -->
-    <section id="page-beranda" class="page active">
+    <section class="page active-page" id="page-beranda">
       <div class="video-container">
-        <video autoplay muted loop playsinline>
-          <source src="https://via.placeholder.com/500/500.mp4?text=TNXUS+CLUB" type="video/mp4">
-          Maaf browser tidak mendukung video
-        </video>
+        <video src="https://raw.githubusercontent.com/USERNAME/REPO/main/video-intro.mp4" autoplay muted loop playsinline></video>
       </div>
 
       <div class="slider-container">
-        <div class="slider-wrapper" id="slideWrapper"></div>
-        <button class="slide-prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
-        <button class="slide-next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
-        <div class="slide-dots" id="slideDots"></div>
+        <div class="slider" id="heroSlider">
+          <div class="slide"><img src="https://via.placeholder.com/500x500/111/D90429?text=Slide+1" alt=""></div>
+          <div class="slide"><img src="https://via.placeholder.com/500x500/111/FFBA08?text=Slide+2" alt=""></div>
+          <div class="slide"><img src="https://via.placeholder.com/500x500/222/D90429?text=Slide+3" alt=""></div>
+          <div class="slide"><img src="https://via.placeholder.com/500x500/222/FFBA08?text=Slide+4" alt=""></div>
+        </div>
+        <div class="slider-dots" id="sliderDots"></div>
       </div>
 
       <div class="about-section">
-        <h2>Tentang TNXUS CLUB</h2>
-        <p>TNXUS CLUB adalah brand lokal yang lahir dari semangat komunitas, gaya, dan kebersamaan. Kami menghadirkan kaos berkualitas dengan desain eksklusif yang mewakili identitasmu. Kenyamanan dan gaya dalam satu kesatuan.</p>
-        <button class="btn-primary" onclick="navigateTo('produk')">Lihat Produk Kami</button>
+        <h2>TENTANG TNXUS CLUB</h2>
+        <p>TNXUS CLUB adalah brand lokal yang lahir dari semangat komunitas, kebersamaan, dan gaya yang tak lekang oleh waktu. Kami menghadirkan kaos berkualitas premium dengan desain eksklusif — bukan sekadar pakaian, tapi bagian dari identitasmu.</p>
+        <p>Dibuat untuk mereka yang berani tampil beda, nyaman setiap saat, dan bangga menjadi bagian dari keluarga besar TNXUS CLUB.</p>
+        <a href="#produk" class="btn-primary nav-link" data-page="produk">Lihat Semua Produk <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </section>
 
     <!-- PRODUK -->
-    <section id="page-produk" class="page">
-      <h2>Produk Kami</h2>
-      
-      <div class="category-tab">
-        <button class="tab-btn active" data-cat="baju" onclick="switchKategori('baju')">Kaos & Baju</button>
-        <button class="tab-btn" data-cat="aksesoris" onclick="switchKategori('aksesoris')">Aksesoris</button>
-      </div>
+    <section class="page" id="page-produk">
+      <h2 class="section-title">KOLEKSI BAJU</h2>
+      <div class="products-grid" id="bajuGrid"><div class="loading">Memuat produk...</div></div>
 
-      <div class="products-grid" id="productsGrid"></div>
+      <h2 class="section-title" style="margin-top: 3rem;">AKSESORIS</h2>
+      <div class="products-grid" id="aksesorisGrid"><div class="loading">Memuat aksesoris...</div></div>
     </section>
 
     <!-- RIWAYAT -->
-    <section id="page-riwayat" class="page">
-      <h2>Riwayat Pesanan</h2>
-      <div class="riwayat-list" id="riwayatList"></div>
+    <section class="page" id="page-riwayat">
+      <h2 class="section-title">RIWAYAT PEMBELIAN</h2>
+      <div class="riwayat-list" id="riwayatList"><div class="loading">Belum ada riwayat pesanan.</div></div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <a href="https://wa.me/6281234567890" target="_blank" class="footer-link"><i class="fab fa-whatsapp"></i> Customer Service</a>
-    <div class="social-links">
-      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-tiktok"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-    </div>
+  <!-- HEADER BAWAH TETAP -->
+  <footer class="footer-fixed">
+    <a href="https://wa.me/6281234567890" target="_blank" class="footer-link">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>Customer Service</span>
+    </a>
+    <a href="https://instagram.com/tnxus.club" target="_blank" class="footer-link">
+      <i class="fa-brands fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
+    <a href="https://www.tiktok.com/@tnxusclub" target="_blank" class="footer-link">
+      <i class="fa-brands fa-tiktok"></i>
+      <span>TikTok</span>
+    </a>
+    <a href="https://youtube.com/@tnxusclub" target="_blank" class="footer-link">
+      <i class="fa-brands fa-youtube"></i>
+      <span>YouTube</span>
+    </a>
   </footer>
 
-  <script>
-    // ===== KONFIGURASI =====
-    const API_URL = "https://script.google.com/macros/s/AKfycbzXXXXXX/exec"; // Ganti URL Deploymen Apps Script kamu
-    let keranjang = [];
-    let slides = [];
-    let produkList = [];
-    let currentSlide = 0;
-    let diskon = 0;
-    let riwayatPesanan = JSON.parse(localStorage.getItem("riwayatPesanan") || "[]");
-
-    // ===== HEADER WARNA BERUBAH =====
-    const warnaHeader = ["#000000", "#8B0000", "#FFD700", "#B22222", "#DAA520"];
-    let idxWarna = 0;
-    setInterval(() => {
-      idxWarna = (idxWarna + 1) % warnaHeader.length;
-      document.getElementById("mainHeader").style.background = warnaHeader[idxWarna];
-    }, 5000);
-
-    // ===== NAVIGASI =====
-    function navigateTo(page) {
-      document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-      document.getElementById(`page-${page}`).classList.add("active");
-      if(page==="riwayat") tampilkanRiwayat();
-      window.scrollTo(0,0);
-    }
-    function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("open");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-    function toggleCart() {
-      document.getElementById("cartPanel").classList.toggle("open");
-      document.getElementById("overlay").classList.toggle("active");
-    }
-
-    // ===== SLIDER BERANDA =====
-    async function muatSlide() {
-      try {
-        const res = await fetch(`${API_URL}?action=getSlide`);
-        slides = await res.json();
-      } catch {
-        slides = [
-          {id:1,foto:"https://via.placeholder.com/500/000000/FFD700?text=TNXUS+CLUB+1",urutan:1},
-          {id:2,foto:"https://via.placeholder.com/500/000000/B22222?text=DESAIN+BARU",urutan:2},
-          {id:3,foto:"https://via.placeholder.com/500/000000/FFFFFF?text=KAOS+PREMIUM",urutan:3},
-          {id:4,foto:"https://via.placeholder.com/500/000000/8B0000?text=LIMITED+EDITION",urutan:4}
-        ];
-      }
-      renderSlide();
-      setInterval(nextSlide, 5000);
-    }
-    function renderSlide() {
-      const wrapper = document.getElementById("slideWrapper");
-      const dots = document.getElementById("slideDots");
-      wrapper.innerHTML = slides.map(s=>`<div class="slide-item"><img src="${s.foto}" alt=""></div>`).join("");
-      dots.innerHTML = slides.map((_,i)=>`<span class="dot ${i===0?'active':''}" onclick="pindahSlide(${i})"></span>`).join("");
-      updateSlidePos();
-    }
-    function updateSlidePos() {
-      document.getElementById("slideWrapper").style.transform = `translateX(-${currentSlide*100}%)`;
-      document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("active",i===currentSlide));
-    }
-    function nextSlide() { currentSlide=(currentSlide+1)%slides.length; updateSlidePos(); }
-    function prevSlide() { currentSlide=(currentSlide-1+slides.length)%slides.length; updateSlidePos(); }
-    function pindahSlide(i) { currentSlide=i; updateSlidePos(); }
-
-    // ===== PRODUK =====
-    async function muatProduk(kategori="baju") {
-      try {
-        const res = await fetch(`${API_URL}?action=getProduk&kategori=${kategori}`);
-        produkList = await res.json();
-      } catch {
-        produkList = kategori==="baju" ? [
-          {id:1,nama:"TNXUS Basic Tee",kategori:"baju",foto:"https://via.placeholder.com/500/111/FFD700?text=BASIC+TEE",deskripsi:"Kaos katun premium 30s",ukuran:"S,M,L,XL,XXL",harga:99000,stok:50},
-          {id:2,nama:"TNXUS Club Logo",kategori:"baju",foto:"https://via.placeholder.com/500/111/B22222?text=CLUB+LOGO",deskripsi:"Desain eksklusif TNXUS",ukuran:"S,M,L,XL",harga:125000,stok:30},
-          {id:3,nama:"TNXUS Street Vibe",kategori:"baju",foto:"https://via.placeholder.com/500/111/FFF?text=STREET+VIBE",deskripsi:"Nyaman untuk aktivitas harian",ukuran:"M,L,XL",harga:110000,stok:25}
-        ] : [
-          {id:4,nama:"Topi TNXUS Cap",kategori:"aksesoris",foto:"https://via.placeholder.com/500/333/FFD700?text=TNXUS+CAP",deskripsi:"Topi bordir logo TNXUS",ukuran:"Satu Ukuran",harga:75000,stok:40},
-          {id:5,nama:"Stiker Pack",kategori:"aksesoris",foto:"https://via.placeholder.com/500/222/FFF?text=STIKER",deskripsi:"5 pcs stiker eksklusif",ukuran:"Satu Ukuran",harga:25000,stok:100}
-        ];
-      }
-      renderProduk();
-    }
-    function switchKategori(cat) {
-      document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.cat===cat));
-      muatProduk(cat);
-    }
-    function renderProduk() {
-      const grid = document.getElementById("productsGrid");
-      grid.innerHTML = produkList.map(p=>`
-        <div class="product-card">
-          <div class="product-img"><img src="${p.foto}" alt="${p.nama}"></div>
-          <div class="product-info">
-            <h3>${p.nama}</h3>
-            <p class="product-desc">${p.deskripsi}</p>
-            <p class="product-size">Ukuran: ${p.ukuran}</p>
-            <p class="product-price">Rp${Number(p.harga).toLocaleString('id-ID')}</p>
-            <select class="size-select" id="size-${p.id}">
-              ${p.ukuran.split(',').map(u=>`<option value="${u}">${u}</option>`).join('')}
-            </select>
-            <button class="btn-add" onclick="tambahKeKeranjang(${p.id})">+ Keranjang</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-        // ===== KERANJANG =====
-    function tambahKeKeranjang(id) {
-      const produk = produkList.find(p => p.id === id);
-      const ukuran = document.getElementById(`size-${id}`).value;
-      
-      const idx = keranjang.findIndex(item => item.id === id && item.ukuran === ukuran);
-      if (idx > -1) {
-        keranjang[idx].jumlah += 1;
-      } else {
-        keranjang.push({
-          ...produk,
-          ukuran: ukuran,
-          jumlah: 1
-        });
-      }
-      
-      updateKeranjang();
-      toggleCart();
-      alert('Berhasil ditambahkan ke keranjang! ✅');
-    }
-
-    function hapusDariKeranjang(index) {
-      keranjang.splice(index, 1);
-      updateKeranjang();
-    }
-
-    function updateKeranjang() {
-      const cartItems = document.getElementById('cartItems');
-      const cartBadge = document.getElementById('cartBadge');
-      const subtotalEl = document.getElementById('subtotal');
-      const diskonEl = document.getElementById('diskon');
-      const totalBayarEl = document.getElementById('totalBayar');
-      
-      cartBadge.textContent = keranjang.reduce((sum, item) => sum + item.jumlah, 0);
-      
-      if (keranjang.length === 0) {
-        cartItems.innerHTML = '<p class="cart-empty">Keranjang masih kosong 😊<br>Yuk pilih produk favoritmu!</p>';
-      } else {
-        cartItems.innerHTML = keranjang.map((item, index) => `
-          <div class="cart-item">
-            <img src="${item.foto}" alt="${item.nama}" class="cart-item-img">
-            <div class="cart-item-info">
-              <h4>${item.nama}</h4>
-              <p>Ukuran: ${item.ukuran}</p>
-              <p>Rp${Number(item.harga).toLocaleString('id-ID')} × ${item.jumlah}</p>
-              <strong>Rp${(item.harga * item.jumlah).toLocaleString('id-ID')}</strong>
-            </div>
-            <button class="cart-item-remove" onclick="hapusDariKeranjang(${index})">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        `).join('');
-      }
-      
-      const subtotal = keranjang.reduce((sum, item) => sum + (item.harga * item.jumlah), 0);
-      subtotalEl.textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
-      diskonEl.textContent = `Rp${diskon.toLocaleString('id-ID')}`;
-      totalBayarEl.textContent = `Rp${(subtotal - diskon).toLocaleString('id-ID')}`;
-    }
-
-    function cekVoucher() {
-      const kode = document.getElementById('voucherCode').value.toUpperCase().trim();
-      if (kode === 'TNXUS10') {
-        diskon = keranjang.reduce((sum, item) => sum + (item.harga * item.jumlah), 0) * 0.1;
-        alert('✅ Voucher diterima! Diskon 10%');
-      } else if (kode === 'TNXUS5') {
-        diskon = 5000;
-        alert('✅ Voucher diterima! Diskon Rp5.000');
-      } else if (kode === '') {
-        diskon = 0;
-      } else {
-        alert('❌ Kode voucher tidak valid');
-        diskon = 0;
-      }
-      updateKeranjang();
-    }
-
-    async function kirimPesanan() {
-      if (keranjang.length === 0) {
-        alert('Keranjang masih kosong!');
-        return;
-      }
-      
-      const nama = document.getElementById('namaPembeli').value.trim();
-      const wa = document.getElementById('noWA').value.trim();
-      const alamat = document.getElementById('alamat').value.trim();
-      
-      if (!nama || !wa || !alamat) {
-        alert('Harap lengkapi data pengiriman!');
-        return;
-      }
-      
-      const subtotal = keranjang.reduce((sum, item) => sum + (item.harga * item.jumlah), 0);
-      const total = subtotal - diskon;
-      
-      // Susun rincian pesanan
-      let rincian = '🛒 *PESANAN BARU - TNXUS CLUB*\n\n';
-      rincian += `👤 Nama: ${nama}\n`;
-      rincian += `📱 WhatsApp: ${wa}\n`;
-      rincian += `📍 Alamat: ${alamat}\n\n`;
-      rincian += `📦 DETAIL PESANAN:\n`;
-      
-      keranjang.forEach(item => {
-        rincian += `• ${item.nama} (${item.ukuran}) ×${item.jumlah} = Rp${(item.harga * item.jumlah).toLocaleString('id-ID')}\n`;
-      });
-      
-      rincian += `\n💰 Subtotal: Rp${subtotal.toLocaleString('id-ID')}\n`;
-      rincian += `🏷️ Diskon: Rp${diskon.toLocaleString('id-ID')}\n`;
-      rincian += `💵 TOTAL: Rp${total.toLocaleString('id-ID')}\n\n`;
-      rincian += `Terima kasih telah berbelanja di TNXUS CLUB! 🙏`;
-      
-      // Simpan ke riwayat
-      const pesananBaru = {
-        id: Date.now(),
-        nama,
-        wa,
-        alamat,
-        produk: [...keranjang],
-        subtotal,
-        diskon,
-        total,
-        tanggal: new Date().toLocaleString('id-ID'),
-        status: 'Menunggu Konfirmasi'
-      };
-      
-      riwayatPesanan.unshift(pesananBaru);
-      localStorage.setItem('riwayatPesanan', JSON.stringify(riwayatPesanan));
-      
-      // Kirim ke Google Sheet
-      try {
-        await fetch(`${API_URL}?action=simpanPesanan&data=${encodeURIComponent(JSON.stringify(pesananBaru))}`, {
-          method: 'POST'
-        });
-      } catch (e) {
-        console.log('Tidak terhubung ke API, tersimpan lokal saja');
-      }
-      
-      // Buka WhatsApp
-      const nomorWA = '6281234567890'; // Ganti nomor WA toko kamu
-      window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(rincian)}`, '_blank');
-      
-      // Reset keranjang
-      keranjang = [];
-      diskon = 0;
-      document.getElementById('voucherCode').value = '';
-      document.getElementById('namaPembeli').value = '';
-      document.getElementById('noWA').value = '';
-      document.getElementById('alamat').value = '';
-      updateKeranjang();
-      toggleCart();
-    }
-
-    // ===== RIWAYAT PEMBELIAN =====
-    function tampilkanRiwayat() {
-      const riwayatList = document.getElementById('riwayatList');
-      
-      if (riwayatPesanan.length === 0) {
-        riwayatList.innerHTML = '<div class="empty-state"><i class="fas fa-history"></i><p>Belum ada riwayat pesanan</p></div>';
-        return;
-      }
-      
-      riwayatList.innerHTML = riwayatPesanan.map(pesanan => `
-        <div class="riwayat-card">
-          <div class="riwayat-header">
-            <span class="riwayat-id">#${pesanan.id}</span>
-            <span class="riwayat-status">${pesanan.status}</span>
-          </div>
-          <div class="riwayat-body">
-            <p><strong>Tanggal:</strong> ${pesanan.tanggal}</p>
-            <p><strong>Nama:</strong> ${pesanan.nama}</p>
-            <div class="riwayat-produk">
-              ${pesanan.produk.map(item => `
-                <p>• ${item.nama} (${item.ukuran}) ×${item.jumlah}</p>
-              `).join('')}
-            </div>
-            <p class="riwayat-total"><strong>Total: Rp${pesanan.total.toLocaleString('id-ID')}</strong></p>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // ===== INISIALISASI =====
-    document.addEventListener('DOMContentLoaded', () => {
-      muatSlide();
-      muatProduk('baju');
-      updateKeranjang();
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
