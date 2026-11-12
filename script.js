@@ -1,5 +1,5 @@
 // === KONFIGURASI ===
-const API_URL = "https://script.google.com/macros/s/AKfycbz-XXXXXXXXX/exec"; // Ganti dengan URL Deploy-mu
+const API_URL = "https://script.google.com/macros/s/AKfycbxzjSiycQgBwx9mGVqoTHQrtotSsfAn3rWzOc6V5lEiq_9uSHS41rgeubeWWRSxjg8bgQ/exec"; // Ganti dengan URL Deploy-mu
 let keranjang = [];
 let slides = [];
 let produkList = [];
@@ -269,7 +269,7 @@ document.getElementById("btnCheckout").addEventListener("click", async () => {
   }
 
   // Buka WhatsApp
-  window.open(`https://wa.me/6281234567890?text=${pesan}`, "_blank");
+  window.open(`https://wa.me/6285188081275?text=${pesan}`, "_blank");
 
   // Reset keranjang
   keranjang = [];
